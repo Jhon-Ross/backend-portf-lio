@@ -1,13 +1,15 @@
 from flask import Flask, request, jsonify
 from flask_mail import Mail, Message
+from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 import logging
 
-# Carrega as variáveis de ambiente do .env
+# Carrega as variáveis de ambiente
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app, origins=["https://new-portf-lio.vercel.app"])
 app.logger.setLevel(logging.DEBUG)
 
 # Configuração do Flask-Mail
@@ -26,7 +28,7 @@ if not app.config['MAIL_USERNAME'] or not app.config['MAIL_PASSWORD']:
 
 @app.route('/enviar', methods=['POST'])
 def enviar_email():
-    data = request.form
+    data = request.get_json()
     nome = data.get('nome')
     email = data.get('email')
     mensagem = data.get('mensagem')

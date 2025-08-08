@@ -9,7 +9,7 @@ import logging
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=["https://new-portf-lio.vercel.app"])
+CORS(app, resources={r"/*": {"origins": "https://new-portf-lio.vercel.app"}})
 app.logger.setLevel(logging.DEBUG)
 
 # Configuração do Flask-Mail
